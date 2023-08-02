@@ -20,7 +20,7 @@ class Freelancer(BaseClassLang):
     email = models.EmailField('Email')
     address = models.CharField('Address', max_length=128)
     cv_en = models.FileField('[EN]CV', upload_to="media")
-    cv_eu = models.FileField('[RU]CV', upload_to="media")
+    cv_ru = models.FileField('[RU]CV', upload_to="media")
     cv_az = models.FileField('[AZ]CV', upload_to="media")
 
     full_name: str = ''
@@ -98,13 +98,15 @@ class Technology(BaseClass):
 
 
 class Hobby(BaseClassLang):
-    lang_fields = ['text']
+    lang_fields = ['title']
 
     icon = models.CharField('Icon code', max_length=64)
-    title = models.CharField('Title', max_length=128)
+    title_en = models.CharField('Title', max_length=128)
+    title_ru = models.CharField('Title', max_length=128)
+    title_az = models.CharField('Title', max_length=128)
     value = models.CharField('Value', max_length=16, null=True, blank=True)
 
-    text: str = ''
+    title: str = ''
 
     class Meta:
         verbose_name = 'Hobby'
@@ -116,8 +118,8 @@ class Hobby(BaseClassLang):
 
 class Experience(BaseClassLang):
     class TypeOfExperience(models.TextChoices):
-        experience = 'experience', 'EXP'
-        education = 'education', 'EDU'
+        experience = 'EXP', 'experience'
+        education = 'EDU', 'education'
 
     lang_fields = ['title', 'sub_title', 'text']
 
@@ -190,4 +192,4 @@ class ProjectGallery(BaseClass):
         verbose_name_plural = 'Projects'
 
     def __str__(self):
-        return self.project
+        return self.image.name

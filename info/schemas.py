@@ -59,6 +59,15 @@ class TechnologySchema(BaseModel):
     name: str
     logo: str
 
+    @field_validator('logo', mode='before')
+    def transform_image(cls, value):
+        if not value:
+            return None
+        if not isinstance(value, str):
+            value = value.url
+        value = re.sub('.*media/', 'media/', value)
+        return value
+
 
 class HobbySchema(BaseModel):
     icon: str

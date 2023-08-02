@@ -10,8 +10,8 @@ class Message(BaseClass):
     text = models.TextField(max_length=1500)
 
     class Meta:
-        verbose_name = 'SocialLink'
-        verbose_name_plural = 'SocialLinks'
+        verbose_name = 'Message'
+        verbose_name_plural = 'Messages'
 
     def __str__(self):
         return self.full_name
