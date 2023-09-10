@@ -1,10 +1,12 @@
 import re
+import datetime
 from typing import List
-from pydantic import BaseModel
 from pydantic import field_validator
 
+from core.schema import BaseSchema
 
-class FreelanceSchema(BaseModel):
+
+class FreelanceSchema(BaseSchema):
     avatar: str
     full_name: str
     about: str
@@ -33,13 +35,13 @@ class FreelanceSchema(BaseModel):
         return value
 
 
-class WhatToDoSchema(BaseModel):
+class WhatToDoSchema(BaseSchema):
     icon: str
     title: str
     text: str
 
 
-class TestimonialSchema(BaseModel):
+class TestimonialSchema(BaseSchema):
     image: str
     full_name: str
     about: str
@@ -55,7 +57,7 @@ class TestimonialSchema(BaseModel):
         return value
 
 
-class TechnologySchema(BaseModel):
+class TechnologySchema(BaseSchema):
     name: str
     logo: str
 
@@ -69,26 +71,42 @@ class TechnologySchema(BaseModel):
         return value
 
 
-class HobbySchema(BaseModel):
+class HobbySchema(BaseSchema):
     icon: str
     title: str
     value: str
 
 
-class ExperienceSchema(BaseModel):
-    experience_type: str
+class ExperienceSchema(BaseSchema):
+    period: str
+    title: str
+    sub_title: str
+    text: str
+    image: str
+
+    @field_validator('image', mode='before')
+    def transform_image(cls, value):
+        if not value:
+            return None
+        if not isinstance(value, str):
+            value = value.url
+        value = re.sub('.*media/', 'media/', value)
+        return value
+
+
+class EducationSchema(BaseSchema):
     period: str
     title: str
     sub_title: str
     text: str
 
 
-class SocialLinkSchema(BaseModel):
+class SocialLinkSchema(BaseSchema):
     name: str
     url: str
 
 
-class ProjectThumbSchema(BaseModel):
+class ProjectThumbSchema(BaseSchema):
     title: str
     preview_image: str
     technologies: List[TechnologySchema] = []
@@ -103,7 +121,7 @@ class ProjectThumbSchema(BaseModel):
         return value
 
 
-class ProjectImageSchema(BaseModel):
+class ProjectImageSchema(BaseSchema):
     image: str
 
     @field_validator('image', mode='before')
@@ -118,6 +136,10 @@ class ProjectImageSchema(BaseModel):
 
 class ProjectSchema(ProjectThumbSchema):
     site_url: str
-    created_date: str
+    created_date: datetime.date
     description: str
     gallery: List[ProjectImageSchema] = []
+
+
+
+

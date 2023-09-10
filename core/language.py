@@ -1,5 +1,5 @@
-from fastapi import Depends, HTTPException, status, Header
-from typing import Optional, List
+from fastapi import Header
+from typing import Optional
 from starlette_context import context
 
 

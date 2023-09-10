@@ -3,12 +3,15 @@ from fastapi import APIRouter, Depends
 
 from core.language import get_language
 from .schemas import FreelanceSchema, WhatToDoSchema, TestimonialSchema, TechnologySchema,\
-    HobbySchema, ExperienceSchema, SocialLinkSchema
+    HobbySchema, ExperienceSchema, SocialLinkSchema, ProjectThumbSchema, ProjectSchema,\
+    EducationSchema
 from .services import freelancer_service, what_to_do_service, testimonial_service, technology_service,\
-    hobby_service, experience_service, social_link_service
+    hobby_service, experience_service, social_link_service, project_service
 
+from core.schema import DjangoUserSchema
 
 info_router = APIRouter()
+project_router = APIRouter()
 
 
 @info_router.get('/freelancer/', response_model=FreelanceSchema, summary='Freelancer Info')
@@ -41,7 +44,7 @@ def experiences(lang: str = Depends(get_language)):
     return experience_service.experience_list()
 
 
-@info_router.get('/education/', response_model=List[ExperienceSchema], summary='Education')
+@info_router.get('/education/', response_model=List[EducationSchema], summary='Education')
 def education(lang: str = Depends(get_language)):
     return experience_service.education_list()
 
@@ -49,3 +52,13 @@ def education(lang: str = Depends(get_language)):
 @info_router.get('/social_links/', response_model=List[SocialLinkSchema], summary='Social Links')
 def social_links(lang: str = Depends(get_language)):
     return social_link_service.get_list()
+
+
+@project_router.get('/projects/', response_model=List[ProjectThumbSchema], summary='Projects List')
+def projects(lang: str = Depends(get_language)):
+    return project_service.get_projects()
+
+
+@project_router.get('/project/{pk}/', response_model=ProjectSchema, summary='Project')
+def projects(pk: str, lang: str = Depends(get_language)):
+    return project_service.get_project(pk)

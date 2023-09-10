@@ -25,7 +25,7 @@ from starlette_context.middleware import ContextMiddleware
 from starlette.middleware.cors import CORSMiddleware
 #import sentry_sdk
 
-from info.api import info_router
+from info.api import info_router, project_router
 from contact.api import contact_router
 
 # sentry_sdk.init(
@@ -57,6 +57,7 @@ fastapp.add_middleware(
 )
 
 fastapp.include_router(info_router, prefix='/api')
+fastapp.include_router(project_router, prefix='/api')
 fastapp.include_router(contact_router, prefix='/api')
 
 

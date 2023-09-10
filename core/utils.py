@@ -1,41 +1,11 @@
 import os
-import random
 import uuid
-import calendar
 import math
 import datetime
 import shutil
 from django.utils.deconstruct import deconstructible
-from typing import List
 from fastapi import File, HTTPException, status
 from django.conf import settings
-
-
-def pref_iter(instance, pref: List[str] = None):
-    data = {}
-    for p in pref:
-        relation_name, child_relation = parse_pref(p)
-
-        if hasattr(instance, relation_name) and getattr(instance, relation_name) is not None:
-            all_method = getattr(getattr(instance, relation_name), "all", None)
-            if callable(all_method):
-                items = []
-                for c in getattr(instance, relation_name).all():
-                    items.append(c.get_data(child_relation))
-                data[relation_name] = items
-            else:
-                data[relation_name] = getattr(instance, relation_name).get_data(child_relation)
-        else:
-            data[relation_name] = None
-
-    return data
-
-
-def parse_pref(pref):
-    if isinstance(pref, str):
-        return pref, None
-    else:
-        return list(pref.keys())[0], list(pref.values())[0]
 
 
 def paginator(page: int):
@@ -76,20 +46,6 @@ def create_file(image: File, path: str):
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
             detail="Image not found",
         )
-
-
-def get_utc_timestamp():
-    """Converts a datetime object to UTC timestamp
-
-    naive datetime will be considered UTC.
-
-    """
-
-    return calendar.timegm(datetime.datetime.utcnow().utctimetuple())
-
-
-def generate_code():
-    return random.randrange(0, 999999)
 
 
 def calc_offset(count, count_pre_page, page):

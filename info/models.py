@@ -1,6 +1,7 @@
 from django.db import models
 
 from core.models import BaseClass, BaseClassLang
+from .schemas import ProjectSchema
 
 
 class Freelancer(BaseClassLang):
@@ -135,6 +136,7 @@ class Experience(BaseClassLang):
     text_en = models.TextField('[EN]Text', max_length=600)
     text_ru = models.TextField('[RU]Text', max_length=600)
     text_az = models.TextField('[AZ]Text', max_length=600)
+    image = models.ImageField('Image', upload_to="media", null=True, blank=True)
 
     title: str = ''
     sub_title: str = ''
