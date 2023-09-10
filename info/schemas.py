@@ -110,6 +110,7 @@ class ProjectThumbSchema(BaseSchema):
     title: str
     preview_image: str
     technologies: List[TechnologySchema] = []
+    tag: str
 
     @field_validator('preview_image', mode='before')
     def transform_image(cls, value):

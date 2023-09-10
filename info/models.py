@@ -172,6 +172,7 @@ class Project(BaseClassLang):
     description_en = models.TextField('[EN]Description')
     description_ru = models.TextField('[RU]Description')
     description_az = models.TextField('[AZ]Description')
+    tag = models.CharField('Tag', max_length=128)
 
     technologies = models.ManyToManyField(Technology, verbose_name='Technologies', related_name='projects')
 
