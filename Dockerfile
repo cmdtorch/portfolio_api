@@ -9,4 +9,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./ /portfolio_app
 
-CMD uvicorn portfolio.asgi:fastapp --host 0.0.0.0 --port 80 --reload
+RUN python manage.py collectstatic

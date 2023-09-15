@@ -18,7 +18,7 @@ class FreelanceSchema(BaseSchema):
 
     @field_validator('profession', mode='before')
     def transform_profession(cls, value):
-        value = re.split(",|, ", value)
+        value = re.split(", |,", value)
         return value
 
     @field_validator('avatar', mode='before')
@@ -115,7 +115,12 @@ class ProjectThumbSchema(BaseSchema):
     title: str
     preview_image: str
     technologies: List[TechnologySchema] = []
-    tag: str
+    tag: List[str]
+
+    @field_validator('tag', mode='before')
+    def transform_profession(cls, value):
+        value = re.split(", |,", value)
+        return value
 
     @field_validator('preview_image', mode='before')
     def transform_image(cls, value):
