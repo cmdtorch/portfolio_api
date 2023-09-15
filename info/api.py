@@ -16,7 +16,7 @@ project_router = APIRouter()
 
 @info_router.get('/freelancer/', response_model=FreelanceSchema, summary='Freelancer Info')
 def get_freelancer(lang: str = Depends(get_language)):
-    return freelancer_service.get_freelancer().get_data()
+    return freelancer_service.get_freelancer()
 
 
 @info_router.get('/what_i_do/', response_model=List[WhatToDoSchema], summary='What I Do')

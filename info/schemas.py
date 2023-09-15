@@ -10,11 +10,16 @@ class FreelanceSchema(BaseSchema):
     avatar: str
     full_name: str
     about: str
-    profession: str
+    profession: List[str]
     phone_number: str
     email: str
     address: str
     cv: str
+
+    @field_validator('profession', mode='before')
+    def transform_profession(cls, value):
+        value = re.split(",|, ", value)
+        return value
 
     @field_validator('avatar', mode='before')
     def transform_image(cls, value):
