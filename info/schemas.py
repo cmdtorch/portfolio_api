@@ -1,5 +1,6 @@
 import re
 import datetime
+from uuid import UUID
 from typing import List
 from pydantic import field_validator
 
@@ -112,7 +113,7 @@ class SocialLinkSchema(BaseSchema):
 
 
 class ProjectThumbSchema(BaseSchema):
-    id: str
+    id: UUID
     title: str
     preview_image: str
     technologies: List[TechnologySchema] = []
