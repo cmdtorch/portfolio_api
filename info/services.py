@@ -37,8 +37,8 @@ class ProjectService(BaseService):
     def get_projects(self):
         return self.model.objects.prefetch_related('gallery', 'technologies').all()
 
-    def get_project(self, pk):
-        return self.model.objects.prefetch_related('gallery', 'technologies').get(pk=pk)
+    def get_project(self, slug: str):
+        return self.model.objects.prefetch_related('gallery', 'technologies').get(slug=slug)
 
     def get_image(self):
         image = ProjectGallery.objects.select_related('project')\

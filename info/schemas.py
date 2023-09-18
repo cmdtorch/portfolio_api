@@ -1,7 +1,7 @@
 import re
 import datetime
 from uuid import UUID
-from typing import List
+from typing import List, Optional
 from pydantic import field_validator
 
 from core.schema import BaseSchema
@@ -80,7 +80,6 @@ class TechnologySchema(BaseSchema):
 class HobbySchema(BaseSchema):
     icon: str
     title: str
-    value: str
 
 
 class ExperienceSchema(BaseSchema):
@@ -109,11 +108,12 @@ class EducationSchema(BaseSchema):
 
 class SocialLinkSchema(BaseSchema):
     name: str
+    icon: str
     url: str
 
 
 class ProjectThumbSchema(BaseSchema):
-    id: UUID
+    slug: str
     title: str
     preview_image: str
     technologies: List[TechnologySchema] = []
@@ -148,7 +148,7 @@ class ProjectImageSchema(BaseSchema):
 
 
 class ProjectSchema(ProjectThumbSchema):
-    site_url: str
+    site_url: Optional[str] = None
     created_date: datetime.date
     description: str
     gallery: List[ProjectImageSchema] = []

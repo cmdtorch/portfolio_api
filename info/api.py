@@ -59,6 +59,6 @@ def projects(lang: str = Depends(get_language)):
     return project_service.get_projects()
 
 
-@project_router.get('/project/{pk}/', response_model=ProjectSchema, summary='Project')
-def projects(pk: str, lang: str = Depends(get_language)):
-    return project_service.get_project(pk)
+@project_router.get('/project/{slug}/', response_model=ProjectSchema, summary='Project')
+def projects(slug: str, lang: str = Depends(get_language)):
+    return project_service.get_project(slug)

@@ -1,7 +1,9 @@
 from django.db import models
+from django.utils.text import slugify
 
 from core.models import BaseClass, BaseClassLang
 from .schemas import ProjectSchema
+from .texts import help_text
 
 
 class Freelancer(BaseClassLang):
@@ -14,9 +16,9 @@ class Freelancer(BaseClassLang):
     about_en = models.TextField('[EN]About Text', max_length=1500)
     about_ru = models.TextField('[RU]About Text', max_length=1500)
     about_az = models.TextField('[AZ]About Text', max_length=1500)
-    profession_en = models.CharField('[EN]Profession', max_length=155, help_text='Example: BackEnd, DevOps, WebDesign')
-    profession_ru = models.CharField('[RU]Profession', max_length=155, help_text='Example: BackEnd, DevOps, WebDesign')
-    profession_az = models.CharField('[AZ]Profession', max_length=155, help_text='Example: BackEnd, DevOps, WebDesign')
+    profession_en = models.CharField('[EN]Profession', max_length=155, help_text=help_text['profession'])
+    profession_ru = models.CharField('[RU]Profession', max_length=155, help_text=help_text['profession'])
+    profession_az = models.CharField('[AZ]Profession', max_length=155, help_text=help_text['profession'])
     phone_number = models.CharField('Phone number', max_length=64)
     email = models.EmailField('Email')
     address = models.CharField('Address', max_length=128)
@@ -40,7 +42,7 @@ class Freelancer(BaseClassLang):
 class WhatToDo(BaseClassLang):
     lang_fields = ['title', 'text']
 
-    icon = models.CharField('Icon code', max_length=64)
+    icon = models.CharField('Icon code', max_length=64, help_text=help_text['icon'])
     title_en = models.CharField('[EN]Title', max_length=128)
     title_ru = models.CharField('[RU]Title', max_length=128)
     title_az = models.CharField('[AZ]Title', max_length=128)
@@ -101,11 +103,10 @@ class Technology(BaseClass):
 class Hobby(BaseClassLang):
     lang_fields = ['title']
 
-    icon = models.CharField('Icon code', max_length=64)
-    title_en = models.CharField('Title', max_length=128)
-    title_ru = models.CharField('Title', max_length=128)
-    title_az = models.CharField('Title', max_length=128)
-    value = models.CharField('Value', max_length=16, null=True, blank=True)
+    icon = models.CharField('Icon code', max_length=64, help_text=help_text['icon'])
+    title_en = models.CharField('[EN]Title', max_length=128)
+    title_ru = models.CharField('[RU]Title', max_length=128)
+    title_az = models.CharField('[AZ]Title', max_length=128)
 
     title: str = ''
 
@@ -126,7 +127,7 @@ class Experience(BaseClassLang):
 
     experience_type = models.CharField('Type', max_length=16, choices=TypeOfExperience.choices)
     sort = models.IntegerField('Sort', default=1)
-    period = models.CharField('Period', max_length=64)
+    period = models.CharField('Period', max_length=64, help_text=help_text['period'])
     title_en = models.CharField('[EN]Title', max_length=128)
     title_ru = models.CharField('[RU]Title', max_length=128)
     title_az = models.CharField('[AZ]Title', max_length=128)
@@ -152,6 +153,7 @@ class Experience(BaseClassLang):
 
 class SocialLink(BaseClass):
     name = models.CharField('Name', max_length=64)
+    icon = models.CharField('Icon code', max_length=64, help_text=help_text['icon'])
     url = models.URLField('Url')
 
     class Meta:
@@ -166,13 +168,14 @@ class Project(BaseClassLang):
     lang_fields = ['description']
 
     title = models.CharField('Title', max_length=128)
+    slug = models.CharField('Slug', max_length=255, blank=True)
     preview_image = models.ImageField('Preview image', upload_to='media')
     site_url = models.URLField('Site URL', blank=True, null=True)
     created_date = models.DateField('Created Date')
     description_en = models.TextField('[EN]Description')
     description_ru = models.TextField('[RU]Description')
     description_az = models.TextField('[AZ]Description')
-    tag = models.CharField('Tag', max_length=128)
+    tag = models.CharField('Tag', max_length=128, help_text=help_text['tag'])
 
     technologies = models.ManyToManyField(Technology, verbose_name='Technologies', related_name='projects')
 
@@ -181,6 +184,11 @@ class Project(BaseClassLang):
     class Meta:
         verbose_name = 'Project'
         verbose_name_plural = 'Projects'
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super(Project, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title

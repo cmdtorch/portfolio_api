@@ -30,7 +30,7 @@ class TechnologyAdmin(admin.ModelAdmin):
 
 @admin.register(Hobby)
 class HobbyAdmin(admin.ModelAdmin):
-    list_display = ['title', 'icon', 'value']
+    list_display = ['title', 'icon']
     date_hierarchy = 'created_at'
 
 
