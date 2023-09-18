@@ -112,6 +112,7 @@ class SocialLinkSchema(BaseSchema):
 
 
 class ProjectThumbSchema(BaseSchema):
+    id: str
     title: str
     preview_image: str
     technologies: List[TechnologySchema] = []
