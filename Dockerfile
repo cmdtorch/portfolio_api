@@ -1,12 +1,12 @@
 FROM python:3.10
 
-WORKDIR /portfolio_app
-COPY ./requirements.txt /portfolio_app/
+WORKDIR /portfolio_api
+COPY ./requirements.txt /portfolio_api/
 
 RUN pip install -r requirements.txt
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./ /portfolio_app
+COPY ./ /portfolio_api
 
 RUN python manage.py collectstatic
