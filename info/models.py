@@ -42,7 +42,7 @@ class Freelancer(BaseClassLang):
 class WhatToDo(BaseClassLang):
     lang_fields = ['title', 'text']
 
-    icon = models.CharField('Icon code', max_length=64, help_text=help_text['icon'])
+    icon = models.CharField('Icon code', max_length=255, help_text=help_text['icon'])
     title_en = models.CharField('[EN]Title', max_length=128)
     title_ru = models.CharField('[RU]Title', max_length=128)
     title_az = models.CharField('[AZ]Title', max_length=128)
@@ -103,7 +103,7 @@ class Technology(BaseClass):
 class Hobby(BaseClassLang):
     lang_fields = ['title']
 
-    icon = models.CharField('Icon code', max_length=64, help_text=help_text['icon'])
+    icon = models.CharField('Icon code', max_length=255, help_text=help_text['icon'])
     title_en = models.CharField('[EN]Title', max_length=128)
     title_ru = models.CharField('[RU]Title', max_length=128)
     title_az = models.CharField('[AZ]Title', max_length=128)
@@ -153,7 +153,7 @@ class Experience(BaseClassLang):
 
 class SocialLink(BaseClass):
     name = models.CharField('Name', max_length=64)
-    icon = models.CharField('Icon code', max_length=64, help_text=help_text['icon'])
+    icon = models.CharField('Icon code', max_length=255, help_text=help_text['icon'])
     url = models.URLField('Url')
 
     class Meta:
