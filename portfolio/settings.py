@@ -127,7 +127,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_SRC = 'media/'
 
 # Default image for user
-DEFAULT_USER_AVATAR = f'{STATIC_URL}image/user.jpg'
+DEFAULT_USER_AVATAR = f'{MEDIA_SRC}image/user.jpg'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
