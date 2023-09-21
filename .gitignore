@@ -5,3 +5,4 @@ staticfiles/admin
 
 # except
 !media/.gitkeep
+!media/user.jpg
