@@ -204,3 +204,15 @@ class ProjectGallery(BaseClass):
 
     def __str__(self):
         return self.image.name
+
+
+class SEOInfo(BaseClass):
+    meta_description = models.TextField('Meta Description')
+    meta_keywords = models.TextField('Meta Keywords')
+
+    class Meta:
+        verbose_name = 'SEO Info'
+        verbose_name_plural = 'SEO Info'
+
+    def __str__(self):
+        return self.meta_description

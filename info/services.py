@@ -1,5 +1,6 @@
 from core.services import BaseService
-from .models import Freelancer, WhatToDo, Testimonial, Technology, Hobby, Experience, SocialLink, Project, ProjectGallery
+from .models import Freelancer, WhatToDo, Testimonial, Technology, Hobby, Experience, SocialLink, Project,\
+    ProjectGallery, SEOInfo
 
 from .schemas import ProjectSchema, ProjectImageSchema
 
@@ -60,6 +61,13 @@ class ExperienceService(BaseService):
         return self.model.objects.filter(experience_type='EDU').order_by('sort')
 
 
+class SEOInfoService(BaseService):
+    model = SEOInfo
+
+    def get_info(self):
+        return self.model.objects.first()
+
+
 freelancer_service = FreelancerService()
 what_to_do_service = WhatToDoService()
 testimonial_service = TestimonialService()
@@ -68,3 +76,4 @@ hobby_service = HobbyService()
 project_service = ProjectService()
 social_link_service = SocialLinkService()
 experience_service = ExperienceService()
+seo_info_service = SEOInfoService()

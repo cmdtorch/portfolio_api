@@ -152,3 +152,9 @@ class ProjectSchema(ProjectThumbSchema):
     created_date: datetime.date
     description: str
     gallery: List[ProjectImageSchema] = []
+
+
+class SEOInfoSchema(BaseSchema):
+    meta_description: str
+    meta_keywords: str
+

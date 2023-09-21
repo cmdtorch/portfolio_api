@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from .models import Freelancer, WhatToDo, Testimonial, Technology, Hobby, Experience, SocialLink, \
-    Project, ProjectGallery
+    Project, ProjectGallery, SEOInfo
 
 
 @admin.register(Freelancer)
@@ -56,3 +56,8 @@ class ProjectAdmin(admin.ModelAdmin):
     inlines = [ProjectGalleryInline]
     date_hierarchy = 'created_at'
 
+
+@admin.register(SEOInfo)
+class SEOInfoAdmin(admin.ModelAdmin):
+    list_display = ['meta_description', 'updated_at']
+    date_hierarchy = 'created_at'

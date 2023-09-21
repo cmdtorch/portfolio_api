@@ -7,9 +7,9 @@ from fastapi.staticfiles import StaticFiles
 from core.language import get_language
 from .schemas import FreelanceSchema, WhatToDoSchema, TestimonialSchema, TechnologySchema,\
     HobbySchema, ExperienceSchema, SocialLinkSchema, ProjectThumbSchema, ProjectSchema,\
-    EducationSchema
+    EducationSchema, SEOInfoSchema
 from .services import freelancer_service, what_to_do_service, testimonial_service, technology_service,\
-    hobby_service, experience_service, social_link_service, project_service
+    hobby_service, experience_service, social_link_service, project_service, seo_info_service
 
 from core.schema import DjangoUserSchema
 
@@ -71,3 +71,8 @@ def projects(lang: str = Depends(get_language)):
 @project_router.get('/project/{slug}/', response_model=ProjectSchema, summary='Project')
 def projects(slug: str, lang: str = Depends(get_language)):
     return project_service.get_project(slug)
+
+
+@project_router.get('/seo/', response_model=SEOInfoSchema, summary='SEO Info')
+def seo_info():
+    return seo_info_service.get_info()
