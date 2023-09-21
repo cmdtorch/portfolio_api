@@ -22,8 +22,8 @@ def get_freelancer(lang: str = Depends(get_language)):
     return freelancer_service.get_freelancer()
 
 
-@info_router.get('/freelancer/avatar.jpg', response_model=FreelanceSchema, summary='Freelancer Avatar')
-def get_freelancer(lang: str = Depends(get_language)):
+@info_router.get('/freelancer/avatar.jpg', summary='Freelancer Avatar')
+def get_avatar():
     avatar = freelancer_service.get_avatar_path()
     return FileResponse(f'{settings.BASE_DIR}{avatar}')
 
