@@ -10,3 +10,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./ /portfolio_api
 
 RUN python manage.py collectstatic --noinput
+
+RUN python manage.py migrate
