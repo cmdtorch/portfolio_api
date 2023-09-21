@@ -27,7 +27,7 @@ class FreelanceSchema(BaseSchema):
         if not value:
             return None
         if not isinstance(value, str):
-            value = value.url
+            value = value.name
         value = re.sub('.*media/', 'media/', value)
         return value
 
@@ -36,7 +36,7 @@ class FreelanceSchema(BaseSchema):
         if not value:
             return None
         if not isinstance(value, str):
-            value = value.url
+            value = value.name
         value = re.sub('.*media/', 'media/', value)
         return value
 
@@ -58,7 +58,7 @@ class TestimonialSchema(BaseSchema):
         if not value:
             return None
         if not isinstance(value, str):
-            value = value.url
+            value = value.name
         value = re.sub('.*media/', 'media/', value)
         return value
 
@@ -72,7 +72,7 @@ class TechnologySchema(BaseSchema):
         if not value:
             return None
         if not isinstance(value, str):
-            value = value.url
+            value = value.name
         value = re.sub('.*media/', 'media/', value)
         return value
 
@@ -94,7 +94,7 @@ class ExperienceSchema(BaseSchema):
         if not value:
             return None
         if not isinstance(value, str):
-            value = value.url
+            value = value.name
         value = re.sub('.*media/', 'media/', value)
         return value
 
@@ -129,7 +129,7 @@ class ProjectThumbSchema(BaseSchema):
         if not value:
             return None
         if not isinstance(value, str):
-            value = value.url
+            value = value.name
         value = re.sub('.*media/', 'media/', value)
         return value
 
@@ -142,7 +142,7 @@ class ProjectImageSchema(BaseSchema):
         if not value:
             return None
         if not isinstance(value, str):
-            value = value.url
+            value = value.name
         value = re.sub('.*media/', 'media/', value)
         return value
 
