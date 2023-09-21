@@ -1,3 +1,7 @@
 .idea
+
 media/*
 staticfiles/admin
+
+# except
+!media/.gitkeep
