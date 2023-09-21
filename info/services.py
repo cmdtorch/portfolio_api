@@ -12,14 +12,14 @@ class FreelancerService(BaseService):
     def get_freelancer(self):
         freelancer = self.model.objects.first()
         if not freelancer:
-            freelancer = self.create_test_freelances()
+            freelancer = self.create_default_freelances()
         return freelancer
 
     def get_avatar_path(self):
         freelancer = self.get_freelancer()
         return freelancer.avatar.path
 
-    def create_test_freelances(self):
+    def create_default_freelances(self):
         self.model.objects.create(
             avatar=settings.DEFAULT_USER_AVATAR,
             full_name_en='Example User',
@@ -95,8 +95,15 @@ class SEOInfoService(BaseService):
     def get_info(self):
         seo_info = self.model.objects.first()
         if not seo_info:
-            raise HTTPException(status_code=404, detail='SEO is not found')
+            seo_info = self.generate_default_seo()
         return seo_info
+
+    def generate_default_seo(self):
+        self.model.objects.create(
+            meta_description='Example',
+            meta_keywords='Example',
+        )
+        return self.model.objects.first()
 
 
 freelancer_service = FreelancerService()

@@ -215,4 +215,4 @@ class SEOInfo(BaseClass):
         verbose_name_plural = 'SEO Info'
 
     def __str__(self):
-        return self.meta_description
+        return 'SEO'
