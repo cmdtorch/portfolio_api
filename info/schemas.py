@@ -152,7 +152,3 @@ class ProjectSchema(ProjectThumbSchema):
     created_date: datetime.date
     description: str
     gallery: List[ProjectImageSchema] = []
-
-
-
-

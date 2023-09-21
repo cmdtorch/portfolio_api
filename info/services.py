@@ -10,6 +10,10 @@ class FreelancerService(BaseService):
     def get_freelancer(self):
         return self.model.objects.first()
 
+    def get_avatar_path(self):
+        return self.model.objects.first().avatar.url
+
+
 
 class WhatToDoService(BaseService):
     model = WhatToDo
