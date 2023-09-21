@@ -11,7 +11,6 @@ from .schemas import FreelanceSchema, WhatToDoSchema, TestimonialSchema, Technol
 from .services import freelancer_service, what_to_do_service, testimonial_service, technology_service,\
     hobby_service, experience_service, social_link_service, project_service, seo_info_service
 
-from core.schema import DjangoUserSchema
 
 info_router = APIRouter()
 project_router = APIRouter()
@@ -24,8 +23,7 @@ def get_freelancer(lang: str = Depends(get_language)):
 
 @info_router.get('/freelancer/avatar.jpg', summary='Freelancer Avatar')
 def get_avatar():
-    avatar = freelancer_service.get_avatar_path()
-    return FileResponse(f'{settings.BASE_DIR}{avatar}')
+    return FileResponse(freelancer_service.get_avatar_path())
 
 
 @info_router.get('/what_i_do/', response_model=List[WhatToDoSchema], summary='What I Do')

@@ -1,19 +1,44 @@
+from fastapi import HTTPException
+from django.conf import settings
+
 from core.services import BaseService
 from .models import Freelancer, WhatToDo, Testimonial, Technology, Hobby, Experience, SocialLink, Project,\
     ProjectGallery, SEOInfo
-
-from .schemas import ProjectSchema, ProjectImageSchema
 
 
 class FreelancerService(BaseService):
     model = Freelancer
 
     def get_freelancer(self):
-        return self.model.objects.first()
+        freelancer = self.model.objects.first()
+        if not freelancer:
+            freelancer = self.create_test_freelances()
+        return freelancer
 
     def get_avatar_path(self):
-        return self.model.objects.first().avatar.url
+        freelancer = self.get_freelancer()
+        return freelancer.avatar.path
 
+    def create_test_freelances(self):
+        self.model.objects.create(
+            avatar=settings.DEFAULT_USER_AVATAR,
+            full_name_en='Example User',
+            full_name_ru='Example User',
+            full_name_az='Example User',
+            about_en='User information',
+            about_ru='User information',
+            about_az='User information',
+            profession_en='User profession',
+            profession_ru='User profession',
+            profession_az='User profession',
+            phone_number='+123456789',
+            email='user@example.com',
+            address='Test address',
+            cv_en=settings.DEFAULT_USER_AVATAR,
+            cv_ru=settings.DEFAULT_USER_AVATAR,
+            cv_az=settings.DEFAULT_USER_AVATAR
+        )
+        return self.model.objects.first()
 
 
 class WhatToDoService(BaseService):
@@ -43,7 +68,10 @@ class ProjectService(BaseService):
         return self.model.objects.prefetch_related('gallery', 'technologies').all()
 
     def get_project(self, slug: str):
-        return self.model.objects.prefetch_related('gallery', 'technologies').get(slug=slug)
+        try:
+            return self.model.objects.prefetch_related('gallery', 'technologies').get(slug=slug)
+        except self.model.DoesNotExist:
+            raise HTTPException(status_code=404, detail='Project not fund')
 
     def get_image(self):
         image = ProjectGallery.objects.select_related('project')\
@@ -65,7 +93,10 @@ class SEOInfoService(BaseService):
     model = SEOInfo
 
     def get_info(self):
-        return self.model.objects.first()
+        seo_info = self.model.objects.first()
+        if not seo_info:
+            raise HTTPException(status_code=404, detail='SEO is not found')
+        return seo_info
 
 
 freelancer_service = FreelancerService()

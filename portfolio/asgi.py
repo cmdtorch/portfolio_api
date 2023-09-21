@@ -56,9 +56,9 @@ fastapp.add_middleware(
     allow_headers=["*"],
 )
 
-fastapp.include_router(info_router, prefix='/api')
-fastapp.include_router(project_router, prefix='/api')
-fastapp.include_router(contact_router, prefix='/api')
+fastapp.include_router(info_router, prefix='/api', tags=['info'])
+fastapp.include_router(project_router, prefix='/api', tags=['project'])
+fastapp.include_router(contact_router, prefix='/api', tags=['contacts'])
 
 
 if settings.MOUNT_DJANGO_APP:
