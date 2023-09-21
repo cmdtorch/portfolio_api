@@ -23,15 +23,9 @@ from starlette.middleware import Middleware
 from starlette_context import plugins
 from starlette_context.middleware import ContextMiddleware
 from starlette.middleware.cors import CORSMiddleware
-#import sentry_sdk
 
 from info.api import info_router, project_router
 from contact.api import contact_router
-
-# sentry_sdk.init(
-#     dsn="https://20c96de741bc463eabb33d542c5cdef4@o1135467.ingest.sentry.io/4504405296545792",
-#     traces_sample_rate=1.0,
-# )
 
 
 middleware = [

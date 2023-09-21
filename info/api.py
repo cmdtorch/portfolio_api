@@ -1,8 +1,6 @@
 from typing import List
 from fastapi import APIRouter, Depends
 from fastapi.responses import FileResponse
-from django.conf import settings
-from fastapi.staticfiles import StaticFiles
 
 from core.language import get_language
 from .schemas import FreelanceSchema, WhatToDoSchema, TestimonialSchema, TechnologySchema,\

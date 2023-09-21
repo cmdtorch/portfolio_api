@@ -2,7 +2,6 @@ from django.db import models
 from django.utils.text import slugify
 
 from core.models import BaseClass, BaseClassLang
-from .schemas import ProjectSchema
 from .texts import help_text
 
 

@@ -1,6 +1,5 @@
 import re
 import datetime
-from uuid import UUID
 from typing import List, Optional
 from pydantic import field_validator
 
