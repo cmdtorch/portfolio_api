@@ -3,6 +3,10 @@
 media/*
 staticfiles/admin
 
+.env
+.env.dev
+.env.prod
+
 # except
 !media/.gitkeep
 !media/user.jpg
