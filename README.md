@@ -9,7 +9,11 @@ This is the API for my portfolio site. It is developed using the <a href="https:
 - Projects
 - Contacts
 
-<i><a href="https://github.com/cmdtorch/portfolio_api/releases/latest" class="external-link" target="_blank">Front-End</a>  for this api developed with VueJS & Nuxt3</i>
+---
+
+**Front-End Source Code**: https://github.com/ilgarabdullazade/nuxt3-my-portfolio
+
+---
 
 ## Installation
 
