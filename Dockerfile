@@ -12,3 +12,5 @@ COPY ./ /portfolio_api
 RUN python manage.py collectstatic --noinput
 
 RUN python manage.py migrate
+
+CMD uvicorn portfolio.asgi:fastapp --host 0.0.0.0 --port 80 --reload
