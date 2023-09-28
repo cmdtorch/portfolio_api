@@ -148,6 +148,8 @@ class ProjectImageSchema(BaseSchema):
 
 class ProjectSchema(ProjectThumbSchema):
     site_url: Optional[str] = None
+    android_url: Optional[str] = None
+    apple_url: Optional[str] = None
     created_date: datetime.date
     description: str
     gallery: List[ProjectImageSchema] = []
