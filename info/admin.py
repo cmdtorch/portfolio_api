@@ -52,7 +52,20 @@ class ProjectGalleryInline(admin.TabularInline):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ['title', 'created_date']
+    list_display = ['title', 'slug', 'created_date', 'sort', 'tag']
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'slug', 'preview_image', 'created_date', 'sort')
+        }),
+        ('Content', {
+            'classes': ('collapse', 'open'),
+            'fields': ('description_en', 'description_ru', 'description_az', 'tag')
+        }),
+        ('Links', {
+            'classes': ('collapse', 'open'),
+            'fields': ('site_url', 'android_url', 'apple_url')
+        }),
+    )
     inlines = [ProjectGalleryInline]
     date_hierarchy = 'created_at'
 

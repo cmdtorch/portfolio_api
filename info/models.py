@@ -88,7 +88,7 @@ class Testimonial(BaseClassLang):
 
 class Technology(BaseClass):
     name = models.CharField('Name', max_length=64)
-    logo = models.ImageField('Logo', upload_to="media")
+    logo = models.ImageField('Logo', upload_to="media", null=True, blank=True)
     show_on_main = models.BooleanField('Show on main page', default=False)
 
     class Meta:
@@ -169,12 +169,16 @@ class Project(BaseClassLang):
     title = models.CharField('Title', max_length=128)
     slug = models.CharField('Slug', max_length=255, blank=True)
     preview_image = models.ImageField('Preview image', upload_to='media')
-    site_url = models.URLField('Site URL', blank=True, null=True)
     created_date = models.DateField('Created Date')
     description_en = models.TextField('[EN]Description')
     description_ru = models.TextField('[RU]Description')
     description_az = models.TextField('[AZ]Description')
     tag = models.CharField('Tag', max_length=128, help_text=help_text['tag'])
+
+    sort = models.IntegerField('Sort', default=1)
+    site_url = models.URLField('Site URL', blank=True, null=True)
+    android_url = models.URLField('Play Market URL', blank=True, null=True)
+    apple_url = models.URLField('Apple Store URL', blank=True, null=True)
 
     technologies = models.ManyToManyField(Technology, verbose_name='Technologies', related_name='projects')
 
