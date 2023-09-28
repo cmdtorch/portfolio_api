@@ -65,7 +65,7 @@ class ProjectService(BaseService):
     model = Project
 
     def get_projects(self):
-        return self.model.objects.prefetch_related('gallery', 'technologies').all()
+        return self.model.objects.prefetch_related('gallery', 'technologies').order_by('-sort').all()
 
     def get_project(self, slug: str):
         try:
