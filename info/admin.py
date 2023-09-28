@@ -59,7 +59,7 @@ class ProjectAdmin(admin.ModelAdmin):
         }),
         ('Content', {
             'classes': ('collapse', 'open'),
-            'fields': ('description_en', 'description_ru', 'description_az', 'tag')
+            'fields': ('description_en', 'description_ru', 'description_az', 'tag', 'technologies')
         }),
         ('Links', {
             'classes': ('collapse', 'open'),
