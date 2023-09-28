@@ -64,7 +64,7 @@ class TestimonialSchema(BaseSchema):
 
 class TechnologySchema(BaseSchema):
     name: str
-    logo: str
+    logo: Optional[str] = None
 
     @field_validator('logo', mode='before')
     def transform_image(cls, value):
