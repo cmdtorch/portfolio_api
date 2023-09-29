@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from ckeditor.fields import RichTextField
 
 from core.models import BaseClass, BaseClassLang
 from .texts import help_text
@@ -12,9 +13,9 @@ class Freelancer(BaseClassLang):
     full_name_en = models.CharField('[EN]Full Name', max_length=128)
     full_name_ru = models.CharField('[RU]Full Name', max_length=128)
     full_name_az = models.CharField('[AZ]Full Name', max_length=128)
-    about_en = models.TextField('[EN]About Text', max_length=1500)
-    about_ru = models.TextField('[RU]About Text', max_length=1500)
-    about_az = models.TextField('[AZ]About Text', max_length=1500)
+    about_en = RichTextField('[EN]About Text', max_length=1500, config_name='text_config')
+    about_ru = RichTextField('[RU]About Text', max_length=1500, config_name='text_config')
+    about_az = RichTextField('[AZ]About Text', max_length=1500, config_name='text_config')
     profession_en = models.CharField('[EN]Profession', max_length=155, help_text=help_text['profession'])
     profession_ru = models.CharField('[RU]Profession', max_length=155, help_text=help_text['profession'])
     profession_az = models.CharField('[AZ]Profession', max_length=155, help_text=help_text['profession'])
@@ -45,9 +46,9 @@ class WhatToDo(BaseClassLang):
     title_en = models.CharField('[EN]Title', max_length=128)
     title_ru = models.CharField('[RU]Title', max_length=128)
     title_az = models.CharField('[AZ]Title', max_length=128)
-    text_en = models.TextField('[EN]Text', max_length=700)
-    text_ru = models.TextField('[RU]Text', max_length=700)
-    text_az = models.TextField('[AZ]Text', max_length=700)
+    text_en = RichTextField('[EN]Text', max_length=700, config_name='text_config')
+    text_ru = RichTextField('[RU]Text', max_length=700, config_name='text_config')
+    text_az = RichTextField('[AZ]Text', max_length=700, config_name='text_config')
 
     title: str = ''
     text: str = ''
@@ -133,9 +134,9 @@ class Experience(BaseClassLang):
     sub_title_en = models.CharField('[EN]Sub title', max_length=128)
     sub_title_ru = models.CharField('[RU]Sub title', max_length=128)
     sub_title_az = models.CharField('[AZ]Sub title', max_length=128)
-    text_en = models.TextField('[EN]Text', max_length=600)
-    text_ru = models.TextField('[RU]Text', max_length=600)
-    text_az = models.TextField('[AZ]Text', max_length=600)
+    text_en = RichTextField('[EN]Text', max_length=600, config_name='text_config')
+    text_ru = RichTextField('[RU]Text', max_length=600, config_name='text_config')
+    text_az = RichTextField('[AZ]Text', max_length=600, config_name='text_config')
     image = models.ImageField('Image', upload_to="media", null=True, blank=True)
 
     title: str = ''
@@ -170,9 +171,9 @@ class Project(BaseClassLang):
     slug = models.CharField('Slug', max_length=255, blank=True)
     preview_image = models.ImageField('Preview image', upload_to='media')
     created_date = models.DateField('Created Date')
-    description_en = models.TextField('[EN]Description')
-    description_ru = models.TextField('[RU]Description')
-    description_az = models.TextField('[AZ]Description')
+    description_en = RichTextField('[EN]Description', config_name='text_config')
+    description_ru = RichTextField('[RU]Description', config_name='text_config')
+    description_az = RichTextField('[AZ]Description', config_name='text_config')
     tag = models.CharField('Tag', max_length=128, help_text=help_text['tag'])
 
     sort = models.IntegerField('Sort', default=1)
