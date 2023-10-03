@@ -13,7 +13,7 @@ class Visit(BaseClass):
     country = models.CharField('Country', max_length=255)
     visits_count = models.PositiveIntegerField('Visit count', default=1)
     last_visit_date = models.DateTimeField('List visit date', default=timezone.now())
-    referrer = models.URLField('Referrer', max_length=255, null=True)
+    referrer = models.URLField('Referrer', max_length=255, null=True, blank=True)
     platform = models.CharField('Platform', max_length=255)
     user_agent = models.CharField('User Agent', max_length=255)
 

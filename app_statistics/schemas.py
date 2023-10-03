@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 
 
@@ -10,6 +11,6 @@ class LocationInfoSchema(BaseModel):
 
 class VisitGetterSchema(BaseModel):
     ip: str
-    referrer: str
+    referrer: Optional[str] = None
     platform: str
     user_agent: str
