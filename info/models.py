@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
+from django import forms
 
 from core.models import BaseClass, BaseClassLang
 from .texts import help_text
@@ -33,6 +34,13 @@ class Freelancer(BaseClassLang):
     class Meta:
         verbose_name = 'Freelancer'
         verbose_name_plural = 'Freelancers'
+
+    def save(self, *args, **kwargs):
+        if self._state.adding:
+            settings = Freelancer.objects.all().first()
+            if settings:
+                raise forms.ValidationError('Freelancer is already exist')
+        super(Freelancer, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.full_name_en
