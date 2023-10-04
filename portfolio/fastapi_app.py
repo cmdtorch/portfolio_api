@@ -6,15 +6,18 @@ from starlette_context import plugins
 from starlette_context.middleware import ContextMiddleware
 from starlette.middleware.cors import CORSMiddleware
 from django.conf import settings
+from telegram import Update
 
 from .asgi import application
 from .api_routers import api_router
 from app_statistics.services import create_settings
+from app_statistics.telegram import app as telegram_app
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await create_settings()
+    await telegram_app.bot.set_webhook(url=f"https://apit.emilhumbatov.com/api/telegram/", allowed_updates=Update.ALL_TYPES)
     yield
 
 
