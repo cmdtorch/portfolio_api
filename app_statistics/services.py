@@ -4,7 +4,7 @@ from asgiref.sync import sync_to_async
 from .models import Visit, VisitFreeIP, StatisticSettings
 from .schemas import VisitGetterSchema
 from .utils import location_api
-from .telegram import send_visit_info
+from .telegram import telegram_bot
 
 
 class StatisticsService:
@@ -47,7 +47,7 @@ class StatisticsService:
         settings = StatisticSettings.objects.first()
         if settings:
             if settings.telegram_notification and settings.telegram_bot_token:
-                await send_visit_info(
+                await telegram_bot.send_visit_info(
                     settings.user_chat_id,
                     visit.ip,
                     visit.country,
@@ -60,7 +60,8 @@ class StatisticsService:
 def create_settings():
     settings = StatisticSettings.objects.first()
     if not settings:
-        StatisticSettings.objects.create(site_name='Portfolio')
+        settings = StatisticSettings.objects.create(site_name='Portfolio')
+    return settings
 
 
 statistics_service = StatisticsService()

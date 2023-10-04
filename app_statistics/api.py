@@ -3,7 +3,7 @@ from telegram import Update
 
 from .schemas import VisitGetterSchema
 from .services import statistics_service
-from .telegram import bot, send_chat_id, send_visit_info
+from .telegram import telegram_bot
 
 
 statistics_router = APIRouter()
@@ -20,5 +20,5 @@ async def new_visit(visit_getter: VisitGetterSchema = Depends()):
 async def webhook(request: Request):
     raw_data = await request.json()
     chat_id = raw_data['message']['chat']['id']
-    await send_chat_id(chat_id)
+    await telegram_bot.send_chat_id(chat_id)
     return 'ok'
