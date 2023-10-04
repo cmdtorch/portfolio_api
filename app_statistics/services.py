@@ -4,7 +4,7 @@ from asgiref.sync import sync_to_async
 from .models import Visit, VisitFreeIP, StatisticSettings
 from .schemas import VisitGetterSchema
 from .utils import location_api
-from .telegram import bot
+from .telegram import send_visit_info
 
 
 class StatisticsService:
@@ -22,16 +22,17 @@ class StatisticsService:
         except Visit.DoesNotExist:
             return None
 
+    @sync_to_async
     def new_visit(self, visit_getter: VisitGetterSchema):
         if self.is_visit_free_ip(visit_getter.ip):
             return None
 
         if visit := self.find_visit_by_ip(visit_getter.ip):
             visit.increase_visit(1)
-            return None
+            return visit
 
         location = location_api.get_location(visit_getter.ip)
-        Visit.objects.create(
+        visit = Visit.objects.create(
             ip=visit_getter.ip,
             city=location['city'],
             region=location['region'],
@@ -40,7 +41,19 @@ class StatisticsService:
             platform=visit_getter.platform,
             user_agent=visit_getter.user_agent,
         )
-        bot.send_message('2145918051', 'asdasdasdasdqdq eqw qweqweqw')
+        return visit
+
+    async def visit_notify(self, visit: Visit):
+        settings = StatisticSettings.objects.first()
+        if settings:
+            if settings.telegram_notification and settings.telegram_bot_token:
+                await send_visit_info(
+                    settings.user_chat_id,
+                    visit.ip,
+                    visit.country,
+                    visit.city,
+                    visit.platform
+                )
 
 
 @sync_to_async

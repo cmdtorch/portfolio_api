@@ -17,7 +17,7 @@ from app_statistics.telegram import app as telegram_app
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await create_settings()
-    await telegram_app.bot.set_webhook(url=f"https://apit.emilhumbatov.com/api/telegram/", allowed_updates=Update.ALL_TYPES)
+    await telegram_app.bot.set_webhook(url=f"https://apit.emilhumbatov.com/api/webhook/", allowed_updates=Update.ALL_TYPES)
     yield
 
 

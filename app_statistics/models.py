@@ -34,6 +34,7 @@ class StatisticSettings(BaseClass):
     site_name = models.CharField('Site name', max_length=255)
     telegram_notification = models.BooleanField('Telegram visit notification', default=False)
     telegram_bot_token = models.CharField('Telegram bot token', max_length=255, blank=True, null=True)
+    user_chat_id = models.CharField('Chat ID for notification', max_length=255, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Settings'
