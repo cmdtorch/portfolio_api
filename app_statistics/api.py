@@ -19,6 +19,9 @@ async def new_visit(visit_getter: VisitGetterSchema = Depends()):
 @statistics_router.post('/webhook/', summary='WebHook')
 async def webhook(request: Request):
     raw_data = await request.json()
-    chat_id = raw_data['message']['chat']['id']
-    await telegram_bot.send_chat_id(chat_id)
+    try:
+        chat_id = raw_data['message']['chat']['id']
+        await telegram_bot.send_chat_id(chat_id)
+    except KeyError:
+        print('Chat in not fund')
     return 'ok'

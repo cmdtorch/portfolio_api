@@ -19,7 +19,7 @@ async def lifespan(app: FastAPI):
     if statistics_settings.telegram_bot_token:
         await telegram_bot.run_bot(
             statistics_settings.telegram_bot_token,
-            f'{settings.CSRF_TRUSTED_ORIGINS}/api/webhook/'
+            f'https://apit.emilhumbatov.com/api/webhook/'
         )
     yield
 
