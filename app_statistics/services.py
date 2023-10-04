@@ -4,7 +4,7 @@ from asgiref.sync import sync_to_async
 from .models import Visit, VisitFreeIP, StatisticSettings
 from .schemas import VisitGetterSchema
 from .utils import location_api
-from .producer import send_visit_message
+from .telegram import bot
 
 
 class StatisticsService:
@@ -40,7 +40,7 @@ class StatisticsService:
             platform=visit_getter.platform,
             user_agent=visit_getter.user_agent,
         )
-        send_visit_message(visit_getter.ip, location['country'], visit_getter.platform)
+        bot.send_message('2145918051', 'asdasdasdasdqdq eqw qweqweqw')
 
 
 @sync_to_async
