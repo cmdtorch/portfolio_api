@@ -9,13 +9,13 @@ from django.conf import settings
 
 from .asgi import application
 from .api_routers import api_router
-from app_statistics.services import create_settings
+from app_statistics.services import get_or_create_settings
 from app_statistics.telegram import telegram_bot
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    statistics_settings = await create_settings()
+    statistics_settings = await get_or_create_settings()
     if statistics_settings.telegram_bot_token:
         await telegram_bot.run_bot(
             statistics_settings.telegram_bot_token,

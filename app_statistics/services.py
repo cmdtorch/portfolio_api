@@ -44,7 +44,7 @@ class StatisticsService:
         return visit
 
     async def visit_notify(self, visit: Visit):
-        settings = StatisticSettings.objects.first()
+        settings = await get_or_create_settings()
         if settings:
             if settings.telegram_notification and settings.telegram_bot_token:
                 await telegram_bot.send_visit_info(
@@ -57,7 +57,7 @@ class StatisticsService:
 
 
 @sync_to_async
-def create_settings():
+def get_or_create_settings():
     settings = StatisticSettings.objects.first()
     if not settings:
         settings = StatisticSettings.objects.create(site_name='Portfolio')
