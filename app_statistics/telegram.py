@@ -11,12 +11,16 @@ class TelegramBot:
         self.app = None
 
     def update_bot(self, token: str, webhook_url: str):
-        loop = asyncio.get_event_loop()
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
         coroutine = self.run_bot(token, webhook_url)
         loop.run_until_complete(coroutine)
 
     async def run_bot(self, token: str, webhook_url: str):
         try:
+            if self.bot:
+                await self.bot.close()
+                await self.app.shutdown()
             self.bot = Bot(token=token)
             self.app = ApplicationBuilder().token(token).build()
             await self.app.bot.set_webhook(url=webhook_url,
