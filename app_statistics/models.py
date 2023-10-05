@@ -1,9 +1,10 @@
-import datetime
+from django.conf import settings
 from django import forms
 from django.utils import timezone
 from django.db import models
 
 from core.models import BaseClass
+from .telegram import telegram_bot
 
 
 class Visit(BaseClass):
@@ -41,10 +42,12 @@ class StatisticSettings(BaseClass):
         verbose_name_plural = 'Settings'
 
     def save(self, *args, **kwargs):
-        if self._state.adding:
-            settings = StatisticSettings.objects.all().first()
-            if settings:
-                raise forms.ValidationError('Settings is already exist')
+        statistic_settings = StatisticSettings.objects.first()
+        if self._state.adding and statistic_settings:
+            raise forms.ValidationError('Settings is already exist')
+
+        if statistic_settings.telegram_bot_token:
+            telegram_bot.update_bot(statistic_settings.telegram_bot_token, settings.TELEGRAM_WEBHOOK_URL)
         super(StatisticSettings, self).save(*args, **kwargs)
 
     def __str__(self):

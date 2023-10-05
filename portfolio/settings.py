@@ -29,6 +29,7 @@ MOUNT_DJANGO_APP = True
 
 ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS', default='*')]
 CSRF_TRUSTED_ORIGINS = [os.getenv('CSRF_TRUSTED_ORIGINS', default='http://localhost')]
+TELEGRAM_WEBHOOK_URL = f"{os.getenv('CSRF_TRUSTED_ORIGINS', default='http://localhost')}/api/webhook/"
 
 
 # Application definition

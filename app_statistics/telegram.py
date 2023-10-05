@@ -1,3 +1,4 @@
+import asyncio
 from telegram import Bot, Update
 from telegram.error import InvalidToken
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
@@ -8,6 +9,11 @@ class TelegramBot:
     def __init__(self):
         self.bot = None
         self.app = None
+
+    def update_bot(self, token: str, webhook_url: str):
+        loop = asyncio.get_event_loop()
+        coroutine = self.run_bot(token, webhook_url)
+        loop.run_until_complete(coroutine)
 
     async def run_bot(self, token: str, webhook_url: str):
         try:
