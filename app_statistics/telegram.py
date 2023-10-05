@@ -19,7 +19,7 @@ class TelegramBot:
     async def run_bot(self, token: str, webhook_url: str):
         try:
             if self.bot:
-                await self.bot.close()
+                await self.bot.shutdown()
                 await self.app.shutdown()
             self.bot = Bot(token=token)
             self.app = ApplicationBuilder().token(token).build()
