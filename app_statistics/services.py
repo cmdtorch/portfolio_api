@@ -1,5 +1,6 @@
 from typing import Optional
 from asgiref.sync import sync_to_async
+from django.utils import timezone
 
 from .models import Visit, VisitFreeIP, StatisticSettings
 from .schemas import VisitGetterSchema
@@ -38,6 +39,7 @@ class StatisticsService:
             region=location['region'],
             country=location['country'],
             referrer=visit_getter.referrer,
+            last_visit_date=timezone.now(),
             platform=visit_getter.platform,
             user_agent=visit_getter.user_agent,
         )

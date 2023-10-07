@@ -4,7 +4,7 @@ from .models import VisitFreeIP, Visit, StatisticSettings
 
 @admin.register(Visit)
 class VisitAdmin(admin.ModelAdmin):
-    list_display = ['ip', 'country', 'visits_count', 'last_visit_date', 'platform']
+    list_display = ['ip', 'country', 'visits_count', 'last_visit_date', 'platform', 'created_at']
     date_hierarchy = 'created_at'
 
 
