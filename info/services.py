@@ -66,11 +66,11 @@ class ProjectService(BaseService):
 
     def get_projects(self):
         return self.model.objects.prefetch_related('gallery', 'technologies')\
-            .order_by('sort').order_by('-created_date').all()
+            .filter(draft=False).order_by('sort').order_by('-created_date').all()
 
     def get_project(self, slug: str):
         try:
-            return self.model.objects.prefetch_related('gallery', 'technologies').get(slug=slug)
+            return self.model.objects.prefetch_related('gallery', 'technologies').get(slug=slug, draft=False)
         except self.model.DoesNotExist:
             raise HTTPException(status_code=404, detail='Project not fund')
 

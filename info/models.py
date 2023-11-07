@@ -182,6 +182,7 @@ class Project(BaseClassLang):
     description_ru = models.TextField('[RU]Description')
     description_az = models.TextField('[AZ]Description')
     tag = models.CharField('Tag', max_length=128, help_text=help_text['tag'])
+    draft = models.BooleanField('Draft', default=False)
 
     sort = models.IntegerField('Sort', default=1)
     site_url = models.URLField('Site URL', blank=True, null=True)

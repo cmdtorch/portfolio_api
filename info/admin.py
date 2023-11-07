@@ -55,7 +55,7 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug', 'created_date', 'sort', 'tag', 'created_at']
     fieldsets = (
         (None, {
-            'fields': ('title', 'slug', 'preview_image', 'created_date', 'sort')
+            'fields': ('title', 'slug', 'preview_image', 'created_date', 'sort', 'draft')
         }),
         ('Content', {
             'classes': ('collapse', 'open'),
