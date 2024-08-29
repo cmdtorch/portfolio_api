@@ -28,12 +28,17 @@ class TelegramBot:
         except InvalidToken:
             print('telegram.error.InvalidToken')
 
-    async def send_visit_info(self, chat_id: str, ip: str, country: str, city: str, platform: str) -> None:
-        await self.bot.send_message(chat_id, f'◀️ New Visit ▶️\n'
-                                        f'🌐 {ip} \n'
-                                        f'🗺 {country} \n'
-                                        f'📍 {city} \n'
-                                        f'💻 {platform} \n')
+    async def send_visit_info(self, chat_id: str, ip: str, country: str, city: str, platform: str, referrer: str, silent_mode: bool = False) -> None:
+        await self.bot.send_message(
+            chat_id,
+            f'◀️ New Visit ▶️\n'
+            f'🌐 {ip} \n'
+            f'🗺 {country} \n'
+            f'📍 {city} \n'
+            f'💻 {platform} \n'
+            f'🔗 {referrer} \n',
+            disable_notification=silent_mode,
+        )
 
     async def send_chat_id(self, chat_id) -> None:
         await self.bot.send_message(chat_id, f'🪪 Your chat ID: {chat_id}')

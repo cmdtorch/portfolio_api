@@ -47,14 +47,19 @@ class StatisticsService:
 
     async def visit_notify(self, visit: Visit):
         settings = await get_or_create_settings()
+        silent_mode = False
         if settings:
             if settings.telegram_notification and settings.telegram_bot_token:
+                if not visit.referrer or visit.platform == 'Linux':
+                    silent_mode = True
                 await telegram_bot.send_visit_info(
                     settings.user_chat_id,
                     visit.ip,
                     visit.country,
                     visit.city,
-                    visit.platform
+                    visit.platform,
+                    visit.referrer,
+                    silent_mode,
                 )
 
 
